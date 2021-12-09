@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import {
+  BrowserRouter as Router,
+  Navigate,
+  Route,
+  Routes,
+} from "react-router-dom";
 
-function App() {
+import HomePage from "./pages/HomePage";
+import AboutPage from "./pages/AboutPage";
+import UsersPage from "./pages/UsersPage";
+import UserPage from "./pages/UserPage";
+import Navbar from "./components/Navbar";
+import DashboardPage from "./pages/DashboardPage";
+
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Navbar />
+
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/users/*" element={<UserPage />} />
+        <Route path="/users" element={<UsersPage />} />
+        <Route path="/myusers/" element={<Navigate replace to="/users" />} />
+        <Route path="/users/:id" element={<UserPage />} />
+        <Route path="/dashboard/*" element={<DashboardPage />}>
+          <Route path="welcome" element={<p>Welcome!</p>} />
+        </Route>
+      </Routes>
+    </Router>
   );
 }
-
-export default App;
